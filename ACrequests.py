@@ -42,14 +42,18 @@ def userRequest(mid):
     response=requests.get(url,headers=head)
     if response.status_code==200:
         print "用户请求成功"
-        html=response.content
-        soup=BeautifulSoup(html,"lxml")
-        userinfo=soup.select(".main")[0].next.text
-        print userinfo
-        pattern=re.compile("(.*?)=(.*)$",re.M)
-        list=pattern.findall(userinfo)
-        UPUser=eval(list[0][1].replace("false","False").replace("true","True"))
-        return UPUser
+        html = response.content
+        soup = BeautifulSoup(html,"lxml")
+        userinfo = soup.select(".main")[0].next.text
+        pattern = re.compile("(.*?)=(.*)$",re.M)
+        list = pattern.findall(userinfo)
+
+        upuser = eval(list[0][1].replace("false","False").replace("true","True"))
+        pagecount=eval(list[2][1])
+        print upuser
+        print pagecount
+
+        return upuser,pagecount
     else:
         if response.status_code==404:
             print "用户不存在"
@@ -70,6 +74,7 @@ def VideoListRequest(mid,pagenum):
     print url
     response=requests.get(url,headers=head)
     if response.status_code==200:
+        print response.content
         return BeautifulSoup(response.content,"lxml")
     else:
         print response.status_code
@@ -91,6 +96,7 @@ def VideoDetailRequest(vid):
         pageInfoDict = eval(pageInfo)
         VideoDetail={}
         #发布时间
+        VideoDetail["id"] = vid.replace("/v/ac","")
         VideoDetail["contributeTime"]=pageInfoDict["contributeTime"]
         #视频名称
         VideoDetail["title"] = pageInfoDict["title"]
@@ -100,6 +106,7 @@ def VideoDetailRequest(vid):
         VideoDetail["duration"]=pageInfoDict["duration"]
         #投蕉数
         VideoDetail["banana"] = pageInfoDict["bananaCount"]
+        print VideoDetail
         return VideoDetail
     else:
         print "请求视频详情失败，%d" % response.status_code
@@ -108,18 +115,19 @@ def VideoDetailRequest(vid):
         '''
 #请求某个视频所有tag的json，成功，返回taglist，不成功，不返回
 def tagsRequest(vid):
-    url = "http://www.acfun.cn/member/collect_up_exist.aspx?contentId="+vid.replace("/v/ac")
+    url = "http://www.acfun.cn/member/collect_up_exist.aspx?contentId="+vid.replace("/v/ac","")
     response = requests.get(url,headers=head)
     if response.status_code==200:
         taglistdict =json.loads( response.text)
-        return taglistdict["tagList"]
+
+        return taglistdict["data"]["tagList"]
 
     else:
         print "请求tag失败"
 
 #请求视频的几个number
 def contentRequest(vid):
-    url="http://www.acfun.cn/content_view.aspx?contentId=3621153"
+    url="http://www.acfun.cn/content_view.aspx?contentId="+vid.replace("/v/ac","")
     ua=random.choice(uas)
     head["User-Agent"]=ua
     response = requests.get(url,headers=head)
@@ -134,4 +142,6 @@ def contentRequest(vid):
         return contentDict
     else:
         print "请求content失败"
+
+VideoDetailRequest("/v/ac3649135")
 
