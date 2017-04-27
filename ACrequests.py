@@ -86,27 +86,37 @@ def VideoListRequest(mid,pagenum):
 #请求单个视频具体信息
 def VideoDetailRequest(vid):
     url="http://www.acfun.cn"+vid
+    print vid
     ua=random.choice(uas)
     head["User-Agent"]=ua
     response = requests.get(url,headers=head)
+    print response.text
     if response.status_code==200:
         html=response.content
-        soup=BeautifulSoup(html,"lxml")
-        pageInfo = soup.find("script",text=re.compile("var pageInfo")).text.replace("var pageInfo =","")
-        pageInfoDict =  json.loads(pageInfo)
-        VideoDetail={}
-        #发布时间
-        VideoDetail["id"] = vid.replace("/v/ac","")
-        VideoDetail["contributeTime"]=pageInfoDict["contributeTime"]
-        #视频名称
-        VideoDetail["title"] = pageInfoDict["title"]
-        #视频描述
-        VideoDetail["description"] = pageInfoDict["description"]
-        #时长
-        VideoDetail["duration"]=pageInfoDict["duration"]
-        #投蕉数
-        VideoDetail["banana"] = pageInfoDict["bananaCount"]
-        return VideoDetail
+        #视频被删除
+        pattern =re.compile("error")
+        search = pattern.search(response.url)
+        if search:
+            print "视频错误"
+        else:
+            #TODO 区分/a/avxxx类型的视频，存入数据库
+            soup=BeautifulSoup(html,"lxml")
+            pageInfo = soup.find("script",text=re.compile("var pageInfo")).text.replace("var pageInfo =","")
+            pageInfoDict =  json.loads(pageInfo)
+            VideoDetail={}
+            #发布时间
+            VideoDetail["id"] = vid.replace("/v/ac","")
+            VideoDetail["contributeTime"]=pageInfoDict["contributeTime"]
+            #视频名称
+            VideoDetail["title"] = pageInfoDict["title"]
+            #视频描述
+            VideoDetail["description"] = pageInfoDict["description"]
+            #时长
+            VideoDetail["duration"]=pageInfoDict["duration"]
+            #投蕉数
+            VideoDetail["banana"] = pageInfoDict["bananaCount"]
+
+            return VideoDetail
     else:
         print "请求视频详情失败，%d" % response.status_code
         '''
@@ -140,5 +150,5 @@ def contentRequest(vid):
     else:
         print "请求content失败"
 
-VideoDetailRequest("/v/ac3649135")
+VideoDetailRequest("/v/ac1474943")
 
