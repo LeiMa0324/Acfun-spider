@@ -40,12 +40,15 @@ head = {
 
 def Spider(uid):
     #获取用户数据
-    (upuser,pagecount) = ACrequests.userRequest(uid)
-    if upuser:
+    tuple =ACrequests.userRequest(uid)
+    #返回用户成功
+    if type(tuple) !=int:
+        upuser =tuple[1]
+        pagecount = tuple[2]
         pagenum=1
         #获取第一页视频列表
         soup = ACrequests.VideoListRequest(uid,pagenum)
-        pageList = eval(soup.body.text.replace("true","True").replace("false","False"))
+        pageList = json.loads(soup.body.text)
 
         #视频数不为0时，遍历每一页
         if pageList["data"]["page"]["totalCount"]!=0:
@@ -59,7 +62,7 @@ def Spider(uid):
             for i in avListPerpage:
                 VideoList.append(i.get("href").replace("'" , "").replace("\\","").replace("\"",""))
 
-            pageinfo =eval( str(soup.find(text=re.compile("pageNo.*(\d*)"))).replace("true","True").replace("false","False")+'"}}')
+            pageinfo = json.loads( str(soup.find(text=re.compile("pageNo.*(\d*)")))+'"}}')
 
             while pageinfo["data"]["page"]["pageNo"]!=pageinfo["data"]["page"]["totalPage"]:
                 print "pageNo:%d and totalPage:%d" %( pageList["data"]["page"]["pageNo"],pageList["data"]["page"]["totalPage"])
@@ -67,9 +70,8 @@ def Spider(uid):
                 print pagenum
                 soup = ACrequests.VideoListRequest(uid,pagenum)
                 avListPerpage = soup.find_all("a")
-                pageinfo = eval(
-                    str(soup.find(text=re.compile("pageNo.*(\d*)"))).replace("true", "True").replace("false",
-                                                                                                     "False") + '"}}')
+                pageinfo =  json.loads(
+                    str(soup.find(text=re.compile("pageNo.*(\d*)"))) + '"}}')
 
                 for j in avListPerpage:
                     VideoList.append(j.get("href").replace("\\","").replace("\"",""))
@@ -95,6 +97,7 @@ def Spider(uid):
             insert2DB(upuser,pagecount,VideoDetaiList,tagList)
         #用户没有视频
         else:
+            print "该用户没有视频%s" %uid
             insert2DB(upuser,pagecount)
     else:
         print "用户获取失败！%s" % uid
@@ -106,22 +109,6 @@ def insert2DB(upuser,pagecount,VideoDetaiList=[],tagList=[]):
      try:
          cur = conn.cursor()
          conn.select_db(dbconfig["db"])
-         #创建用户表
-         with open("sql/acfun_user.sql", "rb") as au:
-
-             ausql = au.read()
-             print ausql
-         cur.execute(ausql)
-         #  创建视频表
-         with open("sql/acfun_video.sql", "rb") as av:
-
-             avsql = av.read()
-         cur.execute(avsql)
-         # 创建tag 表
-         with open("sql/acfun_tag.sql", "rb") as at:
-
-             atsql = at.read()
-         cur.execute(atsql)
 
          '''
          存储用户
@@ -137,6 +124,7 @@ def insert2DB(upuser,pagecount,VideoDetaiList=[],tagList=[]):
                  pagecount["article"],pagecount["flowed"], pagecount["flow"]]
              # 存入用户表
              cur.execute(sql,tmp)
+             conn.commit()
              print "用户成功存入数据库，uid：", upuser["userId"]
              # 计数
              count[0] += 1
@@ -165,7 +153,6 @@ def insert2DB(upuser,pagecount,VideoDetaiList=[],tagList=[]):
          if tagList:
              for tag in tagList:
                  # 检查tag是否已存在
-                 print tag
                  cur.execute("select count(*) from acfun_tag where tagId=%s" % tag["tagId"])
                  record = cur.fetchone()[0]
                  if record == 1:
@@ -174,9 +161,7 @@ def insert2DB(upuser,pagecount,VideoDetaiList=[],tagList=[]):
                      sql= 'INSERT INTO acfun_tag VALUES (%s,%s,%s)'
                      tmp = [tag["tagId"],tag["tagName"],tag["refCount"]]
                      cur.execute(sql,tmp)
-
-
-             conn.commit()
+                     conn.commit()
              print "tag 存储成功！"
 
      except Exception, e:
@@ -184,7 +169,29 @@ def insert2DB(upuser,pagecount,VideoDetaiList=[],tagList=[]):
      finally:
          conn.close()
 
+#检查数据库中最后一条记录
+def lastuserindb():
+      conn = pymysql.connect(host=dbconfig["ip"], user=dbconfig["user"], passwd=dbconfig["passwd"], charset='utf8')
+      lastuser=[0]
+      try:
 
+          cur = conn.cursor()
+          # cur.execute('create database if not exists python')
+          conn.select_db(dbconfig["db"])
+          #检查是否该用户已存在
+          cur.execute("select max(id) from acfun_user;")
+          lastuser[0] = cur.fetchone()[0]
+
+      except Exception,e:
+        print e
+      finally:
+          #关闭数据库
+        conn.close()
+        if lastuser[0] :
+            lastuser[0]=lastuser[0]
+        else:
+            lastuser[0]=0
+        return  lastuser[0]
 
 dbconfig = {}
 
@@ -200,10 +207,42 @@ with open("dbconfig.txt", "rb") as config:
 print(dbconfig)
 
 
+
+
 count=[0]
+'''
+40万，最早视频是2013/02/23
+8629119我自己，注册时间 2016年12月6日
+'''
+lastuser =lastuserindb()
 
-Spider("1715457")
+#选择数据库和文件中最大值
+maxid=int(dbconfig["maxid"]) if int(dbconfig["maxid"])>int(lastuserindb()) else int(lastuserindb())
 
+
+print"当前数据库中最大用户为：", maxid
+
+# 一次获取100w个用户
+for m in range(0,9999):
+    uids = []
+    for i in range(maxid+m*100,maxid+(m+1)*100):
+         uids.append(str(i))
+
+    #开启4个线程
+    pool = ThreadPool(1)
+    try:
+        results = pool.map(Spider, uids)
+
+    except Exception, e:
+        # print 'ConnectionError'
+        print e
+        #用map函数代替for循环，开启多线程运行函数
+        results = pool.map(Spider, uids)
+
+    pool.close()
+    pool.join()
+
+# Spider("400002")
 
 
 

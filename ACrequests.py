@@ -13,6 +13,7 @@ from imp import reload
 import traceback,sys
 from requests.exceptions import ProxyError
 import re
+import ast
 
 def LoadUserAgents(uafile):
 
@@ -41,19 +42,18 @@ def userRequest(mid):
     head["User-Agent"]=ua
     response=requests.get(url,headers=head)
     if response.status_code==200:
-        print "用户请求成功"
+        print "用户请求成功%s" % mid
         html = response.content
         soup = BeautifulSoup(html,"lxml")
         userinfo = soup.select(".main")[0].next.text
         pattern = re.compile("(.*?)=(.*)$",re.M)
         list = pattern.findall(userinfo)
 
-        upuser = eval(list[0][1].replace("false","False").replace("true","True"))
-        pagecount=eval(list[2][1])
-        print upuser
-        print pagecount
+        upuser = json.loads(list[0][1])
+        pagecount= json.loads(list[2][1])
 
-        return upuser,pagecount
+
+        return response.status_code,upuser,pagecount
     else:
         if response.status_code==404:
             print "用户不存在"
@@ -64,19 +64,19 @@ def userRequest(mid):
                '''
                 存入数据库
                 '''
-        print response.status_code
+        print "请求用户%s失败，错误码%s"%(mid,response.status_code)
+        return response.status_code
 
 #请求某个用户的，某一页的所有视频
 def VideoListRequest(mid,pagenum):
     ua=random.choice(uas)
     head["User-Agent"]=ua
     url="http://www.acfun.cn/space/next?uid=%s&type=video&orderBy=2&pageNo=%s" %(mid,pagenum)
-    print url
     response=requests.get(url,headers=head)
     if response.status_code==200:
-        print response.content
         return BeautifulSoup(response.content,"lxml")
     else:
+
         print response.status_code
         '''
         讨论403与404
@@ -92,8 +92,8 @@ def VideoDetailRequest(vid):
     if response.status_code==200:
         html=response.content
         soup=BeautifulSoup(html,"lxml")
-        pageInfo = soup.find("script",text=re.compile("var pageInfo")).text.replace("var pageInfo =","").replace("false","False").replace("true","True")
-        pageInfoDict = eval(pageInfo)
+        pageInfo = soup.find("script",text=re.compile("var pageInfo")).text.replace("var pageInfo =","")
+        pageInfoDict =  json.loads(pageInfo)
         VideoDetail={}
         #发布时间
         VideoDetail["id"] = vid.replace("/v/ac","")
@@ -106,7 +106,6 @@ def VideoDetailRequest(vid):
         VideoDetail["duration"]=pageInfoDict["duration"]
         #投蕉数
         VideoDetail["banana"] = pageInfoDict["bananaCount"]
-        print VideoDetail
         return VideoDetail
     else:
         print "请求视频详情失败，%d" % response.status_code
@@ -119,7 +118,6 @@ def tagsRequest(vid):
     response = requests.get(url,headers=head)
     if response.status_code==200:
         taglistdict =json.loads( response.text)
-
         return taglistdict["data"]["tagList"]
 
     else:
@@ -138,7 +136,6 @@ def contentRequest(vid):
         contentDict["commentnum"] = contentlist[1]
         contentDict["bulletnum"] = contentlist[4]
         contentDict["favoritenum"] = contentlist[5]
-        print contentDict
         return contentDict
     else:
         print "请求content失败"
