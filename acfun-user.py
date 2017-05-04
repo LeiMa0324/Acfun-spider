@@ -1,5 +1,7 @@
 # coding=utf-8
 
+
+
 import requests
 import json
 import random
@@ -14,6 +16,8 @@ import traceback,sys
 from requests.exceptions import ProxyError
 import re
 import ACrequests
+
+
 
 #载入userAgent
 def LoadUserAgents(uafile):
@@ -65,9 +69,7 @@ def Spider(uid):
             pageinfo = json.loads( str(soup.find(text=re.compile("pageNo.*(\d*)")))+'"}}')
 
             while pageinfo["data"]["page"]["pageNo"]!=pageinfo["data"]["page"]["totalPage"]:
-                print "pageNo:%d and totalPage:%d" %( pageList["data"]["page"]["pageNo"],pageList["data"]["page"]["totalPage"])
                 pagenum += 1
-                print pagenum
                 soup = ACrequests.VideoListRequest(uid,pagenum)
                 avListPerpage = soup.find_all("a")
                 pageinfo =  json.loads(
@@ -79,20 +81,24 @@ def Spider(uid):
             print "用户%s共有%d条视频"% (uid,len(VideoList))
 
             for v in VideoList:
-                VideoDetail = dict(ACrequests.VideoDetailRequest(v),**ACrequests.contentRequest(v))
-                VideoDetail["uid"]=uid
-                #获取每个视频的 taglist
-                taglist_per_video = ACrequests.tagsRequest(v)
-                if taglist_per_video:
-                    tagstr=""
-                    tagList.extend(taglist_per_video)
-                    tagIdlist=[]
-                    for tag in taglist_per_video:
-                        tagIdlist.append(str(tag["tagId"]))
-                    VideoDetail["tags"]=",".join(tagIdlist)
-                else:
-                    VideoDetail["tags"]=""
-                VideoDetaiList.append(VideoDetail)
+
+                # 检查返回值，区别对待
+                vDetail = ACrequests.VideoDetailRequest(v)
+                if vDetail:
+                    VideoDetail = dict(vDetail,**ACrequests.contentRequest(v))
+                    VideoDetail["uid"]=uid
+                    #获取每个视频的 taglist
+                    taglist_per_video = ACrequests.tagsRequest(v)
+                    if taglist_per_video:
+                        tagstr=""
+                        tagList.extend(taglist_per_video)
+                        tagIdlist=[]
+                        for tag in taglist_per_video:
+                            tagIdlist.append(str(tag["tagId"]))
+                        VideoDetail["tags"]=",".join(tagIdlist)
+                    else:
+                        VideoDetail["tags"]=""
+                    VideoDetaiList.append(VideoDetail)
             #所有数据插入数据库
             insert2DB(upuser,pagecount,VideoDetaiList,tagList)
         #用户没有视频
@@ -101,6 +107,7 @@ def Spider(uid):
             insert2DB(upuser,pagecount)
     else:
         print "用户获取失败！%s" % uid
+    print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
 
 def insert2DB(upuser,pagecount,VideoDetaiList=[],tagList=[]):
 
@@ -151,18 +158,29 @@ def insert2DB(upuser,pagecount,VideoDetaiList=[],tagList=[]):
          存储 tag
          '''
          if tagList:
+             '''
+             去除重复项
+             '''
+             for tag in tagList:
+                 while tagList.count(tag) > 1:
+                     del tagList[tagList.index(tag)]
+             print "该用户共tag%d条" % len(tagList)
+
+             tagnum= 0
+             tagrepeated = 0
              for tag in tagList:
                  # 检查tag是否已存在
                  cur.execute("select count(*) from acfun_tag where tagId=%s" % tag["tagId"])
                  record = cur.fetchone()[0]
                  if record == 1:
-                     print "该tag已存在！tagid:%s" % tag["tagId"]
+                     tagrepeated += 1
                  else:
                      sql= 'INSERT INTO acfun_tag VALUES (%s,%s,%s)'
                      tmp = [tag["tagId"],tag["tagName"],tag["refCount"]]
                      cur.execute(sql,tmp)
                      conn.commit()
-             print "tag 存储成功！"
+                     tagnum +=1
+             print "tag 存储成功！共有%d条已有tag，存入%d条tag" % (tagrepeated,tagnum)
 
      except Exception, e:
          print e
@@ -229,7 +247,7 @@ for m in range(0,9999):
          uids.append(str(i))
 
     #开启4个线程
-    pool = ThreadPool(1)
+    pool = ThreadPool(4)
     try:
         results = pool.map(Spider, uids)
 
@@ -242,7 +260,7 @@ for m in range(0,9999):
     pool.close()
     pool.join()
 
-# Spider("400002")
+
 
 
 
