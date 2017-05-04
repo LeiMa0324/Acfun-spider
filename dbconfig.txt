@@ -1,5 +1,5 @@
-ip=127.0.0.1
+ip=10.128.201.101
 user=root
 passwd=root
 db=acfun
-maxid=400000
+maxid=4400000

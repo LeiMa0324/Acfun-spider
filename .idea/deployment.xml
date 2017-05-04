@@ -2,10 +2,38 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
-      <paths name="Copy of project-level server '69'">
+      <paths name="101">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/malei/Acfun" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="107">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/malei/Acfun" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="69">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/malei/Acfun" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="70">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/malei/Acfun" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="71">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/malei/Acfun" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

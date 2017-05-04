@@ -15,6 +15,18 @@ from requests.exceptions import ProxyError
 import re
 import ast
 
+
+dbconfig = {}
+
+with open("dbconfig.txt", "rb") as config:
+
+    con = config.readlines()
+    dbconfig["ip"] = con[0].replace("ip=", "").replace("\r\n", "").replace("\n","")
+    dbconfig["user"] = con[1].replace("user=", "").replace("\r\n", "").replace("\n","")
+    dbconfig["passwd"] = con[2].replace("passwd=", "").replace("\r\n", "").replace("\n","")
+    dbconfig["db"] = con[3].replace("db=", "").replace("\r\n", "").replace("\n","")
+    dbconfig["maxid"] = con[4].replace("maxid=", "").replace("\r\n", "").replace("\n","")
+
 def LoadUserAgents(uafile):
 
     uas = []
@@ -41,6 +53,8 @@ def userRequest(mid):
     ua=random.choice(uas)
     head["User-Agent"]=ua
     response=requests.get(url,headers=head)
+    print "__________________________________________________________________"
+    print "请求用户中.."
     if response.status_code==200:
         print "用户请求成功%s" % mid
         html = response.content
@@ -86,11 +100,10 @@ def VideoListRequest(mid,pagenum):
 #请求单个视频具体信息
 def VideoDetailRequest(vid):
     url="http://www.acfun.cn"+vid
-    print vid
     ua=random.choice(uas)
     head["User-Agent"]=ua
     response = requests.get(url,headers=head)
-    print response.text
+
     if response.status_code==200:
         html=response.content
         #视频被删除
@@ -99,29 +112,31 @@ def VideoDetailRequest(vid):
         if search:
             print "视频错误"
         else:
-            #TODO 区分/a/avxxx类型的视频，存入数据库
-            soup=BeautifulSoup(html,"lxml")
-            pageInfo = soup.find("script",text=re.compile("var pageInfo")).text.replace("var pageInfo =","")
-            pageInfoDict =  json.loads(pageInfo)
-            VideoDetail={}
-            #发布时间
-            VideoDetail["id"] = vid.replace("/v/ac","")
-            VideoDetail["contributeTime"]=pageInfoDict["contributeTime"]
-            #视频名称
-            VideoDetail["title"] = pageInfoDict["title"]
-            #视频描述
-            VideoDetail["description"] = pageInfoDict["description"]
-            #时长
-            VideoDetail["duration"]=pageInfoDict["duration"]
-            #投蕉数
-            VideoDetail["banana"] = pageInfoDict["bananaCount"]
 
-            return VideoDetail
+            if response.url=="http://www.acfun.cn"+"/a/"+vid.replace("/v/",""):
+                saveFailVideo(vid.replace("/v/ac",""),"0")
+            else:
+                soup=BeautifulSoup(html,"lxml")
+                pageInfo = soup.find("script",text=re.compile("var pageInfo")).text.replace("var pageInfo =","")
+                pageInfoDict =  json.loads(pageInfo)
+                VideoDetail={}
+                #发布时间
+                VideoDetail["id"] = vid.replace("/v/ac","")
+                VideoDetail["contributeTime"]=pageInfoDict["contributeTime"]
+                #视频名称
+                VideoDetail["title"] = pageInfoDict["title"]
+                #视频描述
+                VideoDetail["description"] = pageInfoDict["description"]
+                #时长
+                VideoDetail["duration"]=pageInfoDict["duration"]
+                #投蕉数
+                VideoDetail["banana"] = pageInfoDict["bananaCount"]
+
+                return VideoDetail
     else:
         print "请求视频详情失败，%d" % response.status_code
-        '''
-        处理措施
-        '''
+        saveFailVideo(vid.replace("/v/ac", ""), "1")
+
 #请求某个视频所有tag的json，成功，返回taglist，不成功，不返回
 def tagsRequest(vid):
     url = "http://www.acfun.cn/member/collect_up_exist.aspx?contentId="+vid.replace("/v/ac","")
@@ -150,5 +165,22 @@ def contentRequest(vid):
     else:
         print "请求content失败"
 
-VideoDetailRequest("/v/ac1474943")
+# failreason 0-不支持的格式 1-获取视频失败
+def saveFailVideo(vid,failreason):
+    conn = pymysql.connect(host=dbconfig["ip"], user=dbconfig["user"], passwd=dbconfig["passwd"],
+                           charset='utf8')
+    try:
+        cur = conn.cursor()
+        conn.select_db(dbconfig["db"])
+
+        cur.execute("INSERT INTO acfun_fail_video VALUES (%s,%s) " % (vid,failreason))
+        conn.commit()
+        print "failed video saved！%s"% vid
+    except Exception,e:
+        print e
+    finally:
+        conn.close()
+
+
+# VideoDetailRequest("/v/ac1474943")
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="cf9e2a08-6865-41cf-b0ed-c27641557ae7" name="70" url="http://10.128.201.70">
+        <fileTransfer host="10.128.201.70" port="22" privateKey="C:\Users\h\Desktop\spark-cao.pem" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="9d3240bb-0483-46be-8bcb-69f38dc2bb62" name="71" url="http://10.128.201.71">
+        <fileTransfer host="10.128.201.71" port="22" privateKey="C:\Users\h\Desktop\spark-cao.pem" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="96111db3-c2cd-462b-b3f4-80aae2cf85ad" name="101" url="http://10.128.201.101">
+        <fileTransfer host="10.128.201.101" port="22" privateKey="C:\Users\h\Desktop\spark-cao.pem" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="bcc94bb4-5e66-453c-b10d-15c343f96ae1" name="107" url="http://10.128.201.107">
+        <fileTransfer host="10.128.201.107" port="22" privateKey="C:\Users\h\Desktop\spark-cao.pem" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

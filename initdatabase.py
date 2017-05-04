@@ -1,3 +1,4 @@
+# coding:utf-8
 import pymysql
 dbconfig = {}
 
@@ -18,13 +19,13 @@ conn = pymysql.connect(host=dbconfig["ip"], user=dbconfig["user"], passwd=dbconf
                        charset='utf8')
 try:
     cur = conn.cursor()
-    conn.select_db(dbconfig["db"])
     #创建数据库
-    with open("sql/acfun_table.sql", "rb") as au:
+    with open("sql/create_table.sql", "rb") as au:
         ausql = au.read()
     cur.execute(ausql)
     conn.commit()
 
+    conn.select_db(dbconfig["db"])
     # 创建用户表
     with open("sql/acfun_user.sql", "rb") as au:
         ausql = au.read()
@@ -36,6 +37,11 @@ try:
     cur.execute(avsql)
     # 创建tag 表
     with open("sql/acfun_tag.sql", "rb") as at:
+        atsql = at.read()
+    cur.execute(atsql)
+    conn.commit()
+    # 创建不支持的视频表
+    with open("sql/acfun_fail_video.sql", "rb") as at:
         atsql = at.read()
     cur.execute(atsql)
     conn.commit()
