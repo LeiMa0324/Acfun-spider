@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d94ad44a-e48c-45c8-8ca3-e319180ed308" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/webServers.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sql/acfun_fail_video" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sql/create_table" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources/1b9dfb96-8847-46f6-ab0a-306539bf5cf7.xml" afterPath="$PROJECT_DIR$/.idea/dataSources/1b9dfb96-8847-46f6-ab0a-306539bf5cf7.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ACrequests.py" afterPath="$PROJECT_DIR$/ACrequests.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dbconfig.txt" afterPath="$PROJECT_DIR$/dbconfig.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/initdatabase.py" afterPath="$PROJECT_DIR$/initdatabase.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,8 +38,8 @@
       <file leaf-file-name="acfun-user.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/acfun-user.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="249" column="24" lean-forward="false" selection-start-line="249" selection-start-column="24" selection-end-line="249" selection-end-column="24" />
+            <state relative-caret-position="1768">
+              <caret line="225" column="0" lean-forward="false" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
               <folding>
                 <element signature="e#18#33#0" expanded="true" />
                 <marker date="1493886547457" expanded="true" signature="3800:3843" ph="select count... acfun_user" />
@@ -60,59 +53,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dbconfig.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dbconfig.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="initdatabase.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/initdatabase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="399">
+              <caret line="21" column="10" lean-forward="false" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/d75b2d95-facc-48a2-b02a-99a4dd51490b/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+      <file leaf-file-name="acfun.acfun_user" pinned="false" current-in-tab="true">
+        <entry file="dbDummy://dbtable:/2fa3df6/1b9dfb96-8847-46f6-ab0a-306539bf5cf7/acfun.acfun_user">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true">
+                <filter text="id=402693" />
+                <filter text="402693" />
+              </filtering>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/4c896b86-63bf-40e2-81d3-35580ed984b7/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5fc1d2cd-a656-4572-a5b7-e5eee4a3c25e/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="true">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/a1a1e7f7-9746-4b75-8021-6555f49b98aa/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
+          <provider editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
@@ -167,6 +128,11 @@
         <option value="$PROJECT_DIR$/acfun-user.py" />
         <option value="$PROJECT_DIR$/dbconfig.txt" />
         <option value="$PROJECT_DIR$/initdatabase.py" />
+        <option value="&lt;63896646-1131-4d10-9be8-dfd29c5b94ee&gt;/home/malei/Acfun/dbconfig.txt" />
+        <option value="&lt;cf9e2a08-6865-41cf-b0ed-c27641557ae7&gt;/home/malei/Acfun/initdatabase.py" />
+        <option value="&lt;9d3240bb-0483-46be-8bcb-69f38dc2bb62&gt;/home/malei/Acfun/initdatabase.py" />
+        <option value="&lt;63896646-1131-4d10-9be8-dfd29c5b94ee&gt;/home/malei/Acfun/initdatabase.py" />
+        <option value="&lt;63896646-1131-4d10-9be8-dfd29c5b94ee&gt;/home/malei/Acfun/sql/create_table.sql" />
       </list>
     </option>
   </component>
@@ -230,7 +196,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="database.data.csv.formats" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/bilibili-user-master" />
@@ -611,7 +577,14 @@
       <option name="project" value="LOCAL" />
       <updated>1493886828581</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="OK">
+      <created>1493888751661</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1493888751661</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -630,13 +603,13 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22321428" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.54464287" sideWeight="0.5021322" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896462" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20089285" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37483618" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896462" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3761468" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25688073" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896462" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24168514" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22912048" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23946784" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22912048" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23946784" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896462" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -737,7 +710,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#16#31#0" expanded="true" />
+            <element signature="e#16#31#0" expanded="false" />
             <marker date="1493866860361" expanded="true" signature="5607:5650" ph="INSERT INTO acfun_unsuppoted_video... " />
           </folding>
         </state>
@@ -887,7 +860,7 @@
         <state relative-caret-position="1283">
           <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
           <folding>
-            <element signature="e#16#31#0" expanded="true" />
+            <element signature="e#16#31#0" expanded="false" />
             <marker date="1493866860361" expanded="true" signature="5607:5650" ph="INSERT INTO acfun_unsuppoted_video... " />
           </folding>
         </state>
@@ -944,22 +917,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/2fa3df6/1b9dfb96-8847-46f6-ab0a-306539bf5cf7/acfun.acfun_user">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" text="id=402693">
-            <filter text="id=402693" />
-            <filter text="402693" />
-          </filtering>
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sql/acfun_user.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -968,34 +925,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/acfun-user.py">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5fc1d2cd-a656-4572-a5b7-e5eee4a3c25e/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="249" column="24" lean-forward="false" selection-start-line="249" selection-start-column="24" selection-end-line="249" selection-end-column="24" />
-          <folding>
-            <element signature="e#18#33#0" expanded="true" />
-            <marker date="1493886547457" expanded="true" signature="3800:3843" ph="select count... acfun_user" />
-            <marker date="1493886547457" expanded="true" signature="4017:4072" ph="INSERT INTO acfun_user... " />
-            <marker date="1493886547457" expanded="true" signature="5205:5273" ph="INSERT INTO acfun_video... " />
-            <marker date="1493886547457" expanded="true" signature="5796:5839" ph="select count... acfun_tag" />
-            <marker date="1493886547457" expanded="true" signature="6024:6063" ph="INSERT INTO acfun_tag... " />
-            <marker date="1493886547457" expanded="true" signature="6762:6792" ph="select max(i... acfun_user" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dbconfig.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/initdatabase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1016,7 +949,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5fc1d2cd-a656-4572-a5b7-e5eee4a3c25e/console.sql">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/a1a1e7f7-9746-4b75-8021-6555f49b98aa/console.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1024,8 +957,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/a1a1e7f7-9746-4b75-8021-6555f49b98aa/console.sql">
+    <entry file="file://$PROJECT_DIR$/dbconfig.txt">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/acfun-user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1768">
+          <caret line="225" column="0" lean-forward="false" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+          <folding>
+            <element signature="e#18#33#0" expanded="true" />
+            <marker date="1493886547457" expanded="true" signature="3800:3843" ph="select count... acfun_user" />
+            <marker date="1493886547457" expanded="true" signature="4017:4072" ph="INSERT INTO acfun_user... " />
+            <marker date="1493886547457" expanded="true" signature="5205:5273" ph="INSERT INTO acfun_video... " />
+            <marker date="1493886547457" expanded="true" signature="5796:5839" ph="select count... acfun_tag" />
+            <marker date="1493886547457" expanded="true" signature="6024:6063" ph="INSERT INTO acfun_tag... " />
+            <marker date="1493886547457" expanded="true" signature="6762:6792" ph="select max(i... acfun_user" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/initdatabase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="10" lean-forward="false" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/2fa3df6/1b9dfb96-8847-46f6-ab0a-306539bf5cf7/acfun.acfun_user">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true">
+            <filter text="id=402693" />
+            <filter text="402693" />
+          </filtering>
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />

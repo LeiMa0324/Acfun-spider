@@ -1,170 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="MySQL - acfun@localhost">
+<dataSource name="acfun@10.128.201.71">
   <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
     <root id="1"/>
     <schema id="2" parent="1" name="acfun">
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
-    <schema id="3" parent="1" name="availableproxy"/>
-    <schema id="4" parent="1" name="bilibili"/>
-    <schema id="5" parent="1" name="information_schema"/>
-    <schema id="6" parent="1" name="mysql"/>
-    <schema id="7" parent="1" name="performance_schema"/>
-    <schema id="8" parent="1" name="sys"/>
-    <table id="9" parent="2" name="acfun_fail_video"/>
-    <table id="10" parent="2" name="acfun_tag"/>
-    <table id="11" parent="2" name="acfun_user"/>
-    <table id="12" parent="2" name="acfun_video"/>
-    <column id="13" parent="9" name="id">
+    <schema id="3" parent="1" name="bilibili"/>
+    <schema id="4" parent="1" name="bilibili469"/>
+    <schema id="5" parent="1" name="chartest"/>
+    <schema id="6" parent="1" name="information_schema"/>
+    <schema id="7" parent="1" name="mysql"/>
+    <schema id="8" parent="1" name="ndbinfo"/>
+    <schema id="9" parent="1" name="ndb_3_fs"/>
+    <schema id="10" parent="1" name="performance_schema"/>
+    <schema id="11" parent="1" name="sys"/>
+    <schema id="12" parent="1" name="test"/>
+    <schema id="13" parent="1" name="weibodb_test"/>
+    <table id="14" parent="2" name="acfun_fail_video"/>
+    <table id="15" parent="2" name="acfun_tag"/>
+    <table id="16" parent="2" name="acfun_user"/>
+    <table id="17" parent="2" name="acfun_video"/>
+    <column id="18" parent="14" name="id">
       <Position>1</Position>
       <DataType>varchar(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="14" parent="9" name="FailReason">
+    <column id="19" parent="14" name="FailReason">
       <Position>2</Position>
       <DataType>int(1)|0</DataType>
     </column>
-    <index id="15" parent="9" name="id">
+    <index id="20" parent="14" name="id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="16" parent="9" name="PRIMARY">
+    <key id="21" parent="14" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="17" parent="9" name="id">
+    <key id="22" parent="14" name="id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id</UnderlyingIndexName>
     </key>
-    <column id="18" parent="10" name="tagId">
+    <column id="23" parent="15" name="tagId">
       <Position>1</Position>
       <DataType>varchar(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="19" parent="10" name="tagName">
+    <column id="24" parent="15" name="tagName">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="20" parent="10" name="refCount">
+    <column id="25" parent="15" name="refCount">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <index id="21" parent="10" name="tagId">
+    <index id="26" parent="15" name="tagId">
       <ColNames>tagId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="22" parent="10" name="PRIMARY">
+    <key id="27" parent="15" name="PRIMARY">
       <ColNames>tagId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="23" parent="10" name="tagId">
+    <key id="28" parent="15" name="tagId">
       <ColNames>tagId</ColNames>
       <UnderlyingIndexName>tagId</UnderlyingIndexName>
     </key>
-    <column id="24" parent="11" name="id">
+    <column id="29" parent="16" name="id">
       <Position>1</Position>
       <DataType>varchar(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="25" parent="11" name="username">
+    <column id="30" parent="16" name="username">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="26" parent="11" name="gender">
+    <column id="31" parent="16" name="gender">
       <Position>3</Position>
       <DataType>int(1)|0</DataType>
     </column>
-    <column id="27" parent="11" name="signature">
+    <column id="32" parent="16" name="signature">
       <Position>4</Position>
       <DataType>varchar(300)|0</DataType>
     </column>
-    <column id="28" parent="11" name="videocount">
+    <column id="33" parent="16" name="videocount">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="29" parent="11" name="articlecount">
+    <column id="34" parent="16" name="articlecount">
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="30" parent="11" name="followedCount">
+    <column id="35" parent="16" name="followedCount">
       <Position>7</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="31" parent="11" name="followingCount">
+    <column id="36" parent="16" name="followingCount">
       <Position>8</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <index id="32" parent="11" name="id">
+    <index id="37" parent="16" name="id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="33" parent="11" name="PRIMARY">
+    <key id="38" parent="16" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="34" parent="11" name="id">
+    <key id="39" parent="16" name="id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id</UnderlyingIndexName>
     </key>
-    <column id="35" parent="12" name="id">
+    <column id="40" parent="17" name="id">
       <Position>1</Position>
       <DataType>varchar(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="36" parent="12" name="uid">
+    <column id="41" parent="17" name="uid">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="37" parent="12" name="title">
+    <column id="42" parent="17" name="title">
       <Position>3</Position>
       <DataType>varchar(200)|0</DataType>
     </column>
-    <column id="38" parent="12" name=" contributeTime">
+    <column id="43" parent="17" name=" contributeTime">
       <Position>4</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="39" parent="12" name=" description">
+    <column id="44" parent="17" name=" description">
       <Position>5</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="40" parent="12" name=" duration">
+    <column id="45" parent="17" name=" duration">
       <Position>6</Position>
       <DataType>int(45)|0</DataType>
     </column>
-    <column id="41" parent="12" name=" banana">
+    <column id="46" parent="17" name=" banana">
       <Position>7</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="42" parent="12" name=" playnum">
+    <column id="47" parent="17" name=" playnum">
       <Position>8</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="43" parent="12" name=" commentnum">
+    <column id="48" parent="17" name=" commentnum">
       <Position>9</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="44" parent="12" name=" bulletnum">
+    <column id="49" parent="17" name=" bulletnum">
       <Position>10</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="45" parent="12" name=" favoritenum">
+    <column id="50" parent="17" name=" favoritenum">
       <Position>11</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="46" parent="12" name=" tags">
+    <column id="51" parent="17" name=" tags">
       <Position>12</Position>
       <DataType>text|0</DataType>
     </column>
-    <index id="47" parent="12" name="id">
+    <index id="52" parent="17" name="id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="48" parent="12" name="PRIMARY">
+    <key id="53" parent="17" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="49" parent="12" name="id">
+    <key id="54" parent="17" name="id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id</UnderlyingIndexName>
     </key>
