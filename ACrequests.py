@@ -73,12 +73,12 @@ def userRequest(mid):
             print "用户不存在"
         else:
             if response.status_code ==403:
-
                print "请求失败"
-               '''
-                存入数据库
-                '''
         print "请求用户%s失败，错误码%s"%(mid,response.status_code)
+        '''
+        保存失败的用户
+        '''
+
         return response.status_code
 
 #请求某个用户的，某一页的所有视频
@@ -92,9 +92,7 @@ def VideoListRequest(mid,pagenum):
     else:
 
         print response.status_code
-        '''
-        讨论403与404
-        '''
+
 
 
 #请求单个视频具体信息
@@ -103,7 +101,7 @@ def VideoDetailRequest(vid):
     ua=random.choice(uas)
     head["User-Agent"]=ua
     response = requests.get(url,headers=head)
-
+    create_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
     if response.status_code==200:
         html=response.content
         #视频被删除
@@ -114,7 +112,10 @@ def VideoDetailRequest(vid):
         else:
 
             if response.url=="http://www.acfun.cn"+"/a/"+vid.replace("/v/",""):
-                saveFailVideo(vid.replace("/v/ac",""),"0")
+                '''
+                视频格式不支持
+                '''
+                saveFailData(vid.replace("/v/ac", ""), "0", response.status_code, "1", create_time)
             else:
                 soup=BeautifulSoup(html,"lxml")
                 pageInfo = soup.find("script",text=re.compile("var pageInfo")).text.replace("var pageInfo =","")
@@ -135,7 +136,10 @@ def VideoDetailRequest(vid):
                 return VideoDetail
     else:
         print "请求视频详情失败，%d" % response.status_code
-        saveFailVideo(vid.replace("/v/ac", ""), "1")
+        '''
+        存储错误视频
+        '''
+        saveFailData(vid.replace("/v/ac", ""), "1",response.status_code,"1",create_time)
 
 #请求某个视频所有tag的json，成功，返回taglist，不成功，不返回
 def tagsRequest(vid):
@@ -147,6 +151,11 @@ def tagsRequest(vid):
 
     else:
         print "请求tag失败"
+        create_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        '''
+        存储错误tag
+        '''
+        saveFailData(vid.replace("/v/ac", ""), "", response.status_code, "2", create_time)
 
 #请求视频的几个number
 def contentRequest(vid):
@@ -163,23 +172,31 @@ def contentRequest(vid):
         contentDict["favoritenum"] = contentlist[5]
         return contentDict
     else:
+        create_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+        '''
+        存储错误视频
+        '''
+        saveFailData(vid.replace("/v/ac", ""), "",response.status_code,"1",create_time)
         print "请求content失败"
 
-# failreason 0-不支持的格式 1-获取视频失败
-def saveFailVideo(vid,failreason):
+'''
+:type 0:User 1:Video 2:tag
+'''
+def saveFailData(id,failreason,status_code,type,create_time):
     conn = pymysql.connect(host=dbconfig["ip"], user=dbconfig["user"], passwd=dbconfig["passwd"],
                            charset='utf8')
     try:
         cur = conn.cursor()
         conn.select_db(dbconfig["db"])
 
-        cur.execute("INSERT INTO acfun_fail_video VALUES (%s,%s) " % (vid,failreason))
+        cur.execute("INSERT INTO acfun_fail_video VALUES (%s,%s,%s,%s,%s) " % (id,failreason,status_code,type,create_time))
         conn.commit()
-        print "failed video saved！%s"% vid
+        print "failed video saved！%s"% id
     except Exception,e:
         print e
     finally:
         conn.close()
+
 
 
 # VideoDetailRequest("/v/ac1474943")
