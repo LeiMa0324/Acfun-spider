@@ -270,7 +270,7 @@ for m in range(0,9999):
     else:
         for i in range(maxid+m*100,dbconfig["limitid"]+1 ):
              uids.append(str(i))
-
+        multiprocessingSpider(uids)
         break
 
 
