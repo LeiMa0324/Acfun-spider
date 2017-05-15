@@ -216,41 +216,7 @@ def lastuserindb():
             lastuser[0]=0
         return  lastuser[0]
 
-dbconfig = {}
-
-with open("dbconfig.txt", "rb") as config:
-
-    con = config.readlines()
-    dbconfig["ip"] = con[0].replace("ip=", "").replace("\r\n", "").replace("\n","")
-    dbconfig["user"] = con[1].replace("user=", "").replace("\r\n", "").replace("\n","")
-    dbconfig["passwd"] = con[2].replace("passwd=", "").replace("\r\n", "").replace("\n","")
-    dbconfig["db"] = con[3].replace("db=", "").replace("\r\n", "").replace("\n","")
-    dbconfig["maxid"] = con[4].replace("maxid=", "").replace("\r\n", "").replace("\n","")
-
-print(dbconfig)
-
-
-
-
-count=[0]
-'''
-40万，最早视频是2013/02/23
-8629119我自己，注册时间 2016年12月6日
-'''
-lastuser =lastuserindb()
-
-#选择数据库和文件中最大值
-maxid=int(dbconfig["maxid"]) if int(dbconfig["maxid"])>int(lastuserindb()) else int(lastuserindb())
-
-
-print"当前数据库中最大用户为：", maxid
-
-# 一次获取100w个用户
-for m in range(0,9999):
-    uids = []
-    for i in range(maxid+m*100,maxid+(m+1)*100):
-         uids.append(str(i))
-
+def multiprocessingSpider(uids):
     #开启4个线程
     pool = ThreadPool(4)
     try:
@@ -264,6 +230,49 @@ for m in range(0,9999):
 
     pool.close()
     pool.join()
+
+
+'''
+主程序
+'''
+dbconfig = {}
+with open("dbconfig.txt", "rb") as config:
+    con = config.readlines()
+    dbconfig["ip"] = con[0].replace("ip=", "").replace("\r\n", "").replace("\n","")
+    dbconfig["user"] = con[1].replace("user=", "").replace("\r\n", "").replace("\n","")
+    dbconfig["passwd"] = con[2].replace("passwd=", "").replace("\r\n", "").replace("\n","")
+    dbconfig["db"] = con[3].replace("db=", "").replace("\r\n", "").replace("\n","")
+    dbconfig["maxid"] = con[4].replace("maxid=", "").replace("\r\n", "").replace("\n","")
+    dbconfig["limitid"] = con[4].replace("limitid=", "").replace("\r\n", "").replace("\n", "")
+
+print(dbconfig)
+
+
+count=[0]
+'''
+40万，最早视频是2013/02/23
+8629119我自己，注册时间 2016年12月6日
+'''
+lastuser =lastuserindb()
+
+#选择数据库和文件中最大值
+maxid=int(dbconfig["maxid"]) if int(dbconfig["maxid"])>int(lastuserindb()) else int(lastuserindb())
+print"当前数据库中最大用户为：", maxid
+
+
+# 一次获取100w个用户
+for m in range(0,9999):
+    uids = []
+    if  dbconfig["limitid"]>maxid+(m+1)*100:
+        for i in range(maxid+m*100,maxid+(m+1)*100 ):
+             uids.append(str(i))
+        multiprocessingSpider(uids)
+    else:
+        for i in range(maxid+m*100,dbconfig["limitid"]+1 ):
+             uids.append(str(i))
+
+        break
+
 
 
 
