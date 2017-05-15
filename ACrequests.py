@@ -16,6 +16,8 @@ import re
 import ast
 
 
+
+
 dbconfig = {}
 
 with open("dbconfig.txt", "rb") as config:
@@ -75,9 +77,9 @@ def userRequest(mid):
             if response.status_code ==403:
                print "请求失败"
         print "请求用户%s失败，错误码%s"%(mid,response.status_code)
-        '''
-        保存失败的用户
-        '''
+        create_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+
+        saveFailData(mid, "",response.status_code,"0",create_time)
 
         return response.status_code
 
@@ -185,13 +187,15 @@ def contentRequest(vid):
 def saveFailData(id,failreason,status_code,type,create_time):
     conn = pymysql.connect(host=dbconfig["ip"], user=dbconfig["user"], passwd=dbconfig["passwd"],
                            charset='utf8')
+    typetext = {"0":"User","1":"Video","2":"tag"}
     try:
         cur = conn.cursor()
         conn.select_db(dbconfig["db"])
+        data=[id,failreason,status_code,type,create_time]
 
-        cur.execute("INSERT INTO acfun_fail_video VALUES (%s,%s,%s,%s,%s) " % (id,failreason,status_code,type,create_time))
+        cur.execute("INSERT INTO acfun_fail_video VALUES (%s,%s,%s,%s,%s) " ,data)
         conn.commit()
-        print "failed video saved！%s"% id
+        print "failed %s saved！%s"% (typetext[type],id)
     except Exception,e:
         print e
     finally:
@@ -199,5 +203,5 @@ def saveFailData(id,failreason,status_code,type,create_time):
 
 
 
-# VideoDetailRequest("/v/ac1474943")
+
 

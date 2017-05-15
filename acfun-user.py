@@ -45,68 +45,73 @@ head = {
 def Spider(uid):
     #获取用户数据
     tuple =ACrequests.userRequest(uid)
-    #返回用户成功
-    if type(tuple) !=int:
-        upuser =tuple[1]
-        pagecount = tuple[2]
-        pagenum=1
-        #获取第一页视频列表
-        soup = ACrequests.VideoListRequest(uid,pagenum)
-        pageList = json.loads(soup.body.text)
+    try:
+        #返回用户成功
+        if type(tuple) !=int:
+            upuser =tuple[1]
+            pagecount = tuple[2]
+            pagenum=1
+            #获取第一页视频列表
+            soup = ACrequests.VideoListRequest(uid,pagenum)
+            pageList = json.loads(soup.body.text)
 
-        #视频数不为0时，遍历每一页
-        if pageList["data"]["page"]["totalCount"]!=0:
-            #视频详细信息列表
-            VideoDetaiList=[]
-            #所有 tag 列表
-            tagList=[]
-            avListPerpage = soup.find_all("a")
-            #视频临时列表
-            VideoList = []
-            for i in avListPerpage:
-                VideoList.append(i.get("href").replace("'" , "").replace("\\","").replace("\"",""))
-
-            pageinfo = json.loads( str(soup.find(text=re.compile("pageNo.*(\d*)")))+'"}}')
-
-            while pageinfo["data"]["page"]["pageNo"]!=pageinfo["data"]["page"]["totalPage"]:
-                pagenum += 1
-                soup = ACrequests.VideoListRequest(uid,pagenum)
+            #视频数不为0时，遍历每一页
+            if pageList["data"]["page"]["totalCount"]!=0:
+                #视频详细信息列表
+                VideoDetaiList=[]
+                #所有 tag 列表
+                tagList=[]
                 avListPerpage = soup.find_all("a")
-                pageinfo =  json.loads(
-                    str(soup.find(text=re.compile("pageNo.*(\d*)"))) + '"}}')
+                #视频临时列表
+                VideoList = []
+                for i in avListPerpage:
+                    VideoList.append(i.get("href").replace("'" , "").replace("\\","").replace("\"",""))
 
-                for j in avListPerpage:
-                    VideoList.append(j.get("href").replace("\\","").replace("\"",""))
+                pageinfo = json.loads( str(soup.find(text=re.compile("pageNo.*(\d*)")))+'"}}')
 
-            print "用户%s共有%d条视频"% (uid,len(VideoList))
+                while pageinfo["data"]["page"]["pageNo"]!=pageinfo["data"]["page"]["totalPage"]:
+                    pagenum += 1
+                    soup = ACrequests.VideoListRequest(uid,pagenum)
+                    avListPerpage = soup.find_all("a")
+                    pageinfo =  json.loads(
+                        str(soup.find(text=re.compile("pageNo.*(\d*)"))) + '"}}')
 
-            for v in VideoList:
+                    for j in avListPerpage:
+                        VideoList.append(j.get("href").replace("\\","").replace("\"",""))
 
-                # 检查返回值，区别对待
-                vDetail = ACrequests.VideoDetailRequest(v)
-                if vDetail:
-                    VideoDetail = dict(vDetail,**ACrequests.contentRequest(v))
-                    VideoDetail["uid"]=uid
-                    #获取每个视频的 taglist
-                    taglist_per_video = ACrequests.tagsRequest(v)
-                    if taglist_per_video:
-                        tagstr=""
-                        tagList.extend(taglist_per_video)
-                        tagIdlist=[]
-                        for tag in taglist_per_video:
-                            tagIdlist.append(str(tag["tagId"]))
-                        VideoDetail["tags"]=",".join(tagIdlist)
-                    else:
-                        VideoDetail["tags"]=""
-                    VideoDetaiList.append(VideoDetail)
-            #所有数据插入数据库
-            insert2DB(upuser,pagecount,VideoDetaiList,tagList)
-        #用户没有视频
+                print "用户%s共有%d条视频"% (uid,len(VideoList))
+
+                for v in VideoList:
+
+                    # 检查返回值，区别对待
+                    vDetail = ACrequests.VideoDetailRequest(v)
+                    if vDetail:
+                        VideoDetail = dict(vDetail,**ACrequests.contentRequest(v))
+                        VideoDetail["uid"]=uid
+                        #获取每个视频的 taglist
+                        taglist_per_video = ACrequests.tagsRequest(v)
+                        if taglist_per_video:
+                            tagstr=""
+                            tagList.extend(taglist_per_video)
+                            tagIdlist=[]
+                            for tag in taglist_per_video:
+                                tagIdlist.append(str(tag["tagId"]))
+                            VideoDetail["tags"]=",".join(tagIdlist)
+                        else:
+                            VideoDetail["tags"]=""
+                        VideoDetaiList.append(VideoDetail)
+                #所有数据插入数据库
+                insert2DB(upuser,pagecount,VideoDetaiList,tagList)
+            #用户没有视频
+            else:
+                print "该用户没有视频%s" %uid
+                insert2DB(upuser,pagecount)
         else:
-            print "该用户没有视频%s" %uid
-            insert2DB(upuser,pagecount)
-    else:
-        print "用户获取失败！%s" % uid
+            print "用户获取失败！%s" % uid
+    except Exception,e:
+        print e
+        print uid
+        traceback.print_exc(file=sys.stdout)
     print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
 
 def insert2DB(upuser,pagecount,VideoDetaiList=[],tagList=[]):

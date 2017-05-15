@@ -31,146 +31,158 @@
       <Position>2</Position>
       <DataType>int(1)|0</DataType>
     </column>
-    <index id="21" parent="15" name="id">
+    <column id="21" parent="15" name="status_code">
+      <Position>3</Position>
+      <DataType>int(5)|0</DataType>
+    </column>
+    <column id="22" parent="15" name="type">
+      <Position>4</Position>
+      <DataType>int(1)|0</DataType>
+    </column>
+    <column id="23" parent="15" name="create_time">
+      <Position>5</Position>
+      <DataType>char(40)|0</DataType>
+    </column>
+    <index id="24" parent="15" name="id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="22" parent="15" name="PRIMARY">
+    <key id="25" parent="15" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="23" parent="15" name="id">
+    <key id="26" parent="15" name="id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id</UnderlyingIndexName>
     </key>
-    <column id="24" parent="16" name="tagId">
+    <column id="27" parent="16" name="tagId">
       <Position>1</Position>
       <DataType>varchar(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="25" parent="16" name="tagName">
+    <column id="28" parent="16" name="tagName">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="26" parent="16" name="refCount">
+    <column id="29" parent="16" name="refCount">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <index id="27" parent="16" name="tagId">
+    <index id="30" parent="16" name="tagId">
       <ColNames>tagId</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="28" parent="16" name="PRIMARY">
+    <key id="31" parent="16" name="PRIMARY">
       <ColNames>tagId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="29" parent="16" name="tagId">
+    <key id="32" parent="16" name="tagId">
       <ColNames>tagId</ColNames>
       <UnderlyingIndexName>tagId</UnderlyingIndexName>
     </key>
-    <column id="30" parent="17" name="id">
+    <column id="33" parent="17" name="id">
       <Position>1</Position>
       <DataType>varchar(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="31" parent="17" name="username">
+    <column id="34" parent="17" name="username">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="32" parent="17" name="gender">
+    <column id="35" parent="17" name="gender">
       <Position>3</Position>
       <DataType>int(1)|0</DataType>
     </column>
-    <column id="33" parent="17" name="signature">
+    <column id="36" parent="17" name="signature">
       <Position>4</Position>
       <DataType>varchar(300)|0</DataType>
     </column>
-    <column id="34" parent="17" name="videocount">
+    <column id="37" parent="17" name="videocount">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="35" parent="17" name="articlecount">
+    <column id="38" parent="17" name="articlecount">
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="36" parent="17" name="followedCount">
+    <column id="39" parent="17" name="followedCount">
       <Position>7</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="37" parent="17" name="followingCount">
+    <column id="40" parent="17" name="followingCount">
       <Position>8</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <index id="38" parent="17" name="id">
+    <index id="41" parent="17" name="id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="39" parent="17" name="PRIMARY">
+    <key id="42" parent="17" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="40" parent="17" name="id">
+    <key id="43" parent="17" name="id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id</UnderlyingIndexName>
     </key>
-    <column id="41" parent="18" name="id">
+    <column id="44" parent="18" name="id">
       <Position>1</Position>
       <DataType>varchar(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="42" parent="18" name="uid">
+    <column id="45" parent="18" name="uid">
       <Position>2</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="43" parent="18" name="title">
+    <column id="46" parent="18" name="title">
       <Position>3</Position>
       <DataType>varchar(200)|0</DataType>
     </column>
-    <column id="44" parent="18" name=" contributeTime">
+    <column id="47" parent="18" name=" contributeTime">
       <Position>4</Position>
       <DataType>varchar(45)|0</DataType>
     </column>
-    <column id="45" parent="18" name=" description">
+    <column id="48" parent="18" name=" description">
       <Position>5</Position>
       <DataType>text|0</DataType>
     </column>
-    <column id="46" parent="18" name=" duration">
+    <column id="49" parent="18" name=" duration">
       <Position>6</Position>
       <DataType>int(45)|0</DataType>
     </column>
-    <column id="47" parent="18" name=" banana">
+    <column id="50" parent="18" name=" banana">
       <Position>7</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="48" parent="18" name=" playnum">
+    <column id="51" parent="18" name=" playnum">
       <Position>8</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="49" parent="18" name=" commentnum">
+    <column id="52" parent="18" name=" commentnum">
       <Position>9</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="50" parent="18" name=" bulletnum">
+    <column id="53" parent="18" name=" bulletnum">
       <Position>10</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="51" parent="18" name=" favoritenum">
+    <column id="54" parent="18" name=" favoritenum">
       <Position>11</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="52" parent="18" name=" tags">
+    <column id="55" parent="18" name=" tags">
       <Position>12</Position>
       <DataType>text|0</DataType>
     </column>
-    <index id="53" parent="18" name="id">
+    <index id="56" parent="18" name="id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="54" parent="18" name="PRIMARY">
+    <key id="57" parent="18" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="55" parent="18" name="id">
+    <key id="58" parent="18" name="id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id</UnderlyingIndexName>
     </key>
