@@ -20,7 +20,7 @@ conn = pymysql.connect(host=dbconfig["ip"], user=dbconfig["user"], passwd=dbconf
 try:
     cur = conn.cursor()
     #创建数据库
-    with open("sql/create_table.sql", "rb") as au:
+    with open("sql/create_schema.sql", "rb") as au:
         ausql = au.read()
     cur.execute(ausql)
     conn.commit()

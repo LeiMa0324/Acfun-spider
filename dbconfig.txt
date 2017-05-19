@@ -3,3 +3,4 @@ user=root
 passwd=root
 db=acfun
 maxid=400000
+limitid=1400000
