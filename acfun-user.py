@@ -243,7 +243,7 @@ with open("dbconfig.txt", "rb") as config:
     dbconfig["passwd"] = con[2].replace("passwd=", "").replace("\r\n", "").replace("\n","")
     dbconfig["db"] = con[3].replace("db=", "").replace("\r\n", "").replace("\n","")
     dbconfig["maxid"] = con[4].replace("maxid=", "").replace("\r\n", "").replace("\n","")
-    dbconfig["limitid"] = con[4].replace("limitid=", "").replace("\r\n", "").replace("\n", "")
+    dbconfig["limitid"] =int( con[5].replace("limitid=", "").replace("\r\n", "").replace("\n", ""))
 
 print(dbconfig)
 
